@@ -45,3 +45,6 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+/MySQL/nbproject/private/
+/MySQL/build/
+/MySQL/dist/
