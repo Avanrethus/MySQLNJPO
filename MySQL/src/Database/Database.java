@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
+    
 
  class Database {
     private static Database dbInstance;
@@ -28,9 +28,9 @@ import java.util.logging.Logger;
     public Connection getConnection(){
         if(con == null){
             try{
-                String host = " ";
-                String login = " ";
-                String pass = " ";
+                String host = "localhost:3306/njpo";
+                String login = "root";
+                String pass = "1234kokos";
                 con = DriverManager.getConnection(host, login, pass);
             }
             catch (SQLException ex){
