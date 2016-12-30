@@ -1,23 +1,23 @@
 package Database;
 
-import java.sql.Connection;
-import java.util.ArrayList;
-import java.util.List;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class KsiazkaAdresowa {
 
-    public static void main(String[] args){
-        List<Osoba> osoby = new ArrayList<Osoba>();
-        osoby.add(new Osoba("Przemek","Jarosz","Lwowska","Olkusz",505678908,"34-678"));
-        osoby.add(new Osoba("Justyna","Czekan","Al.Jerozolimskie","Warszawa",785632778,"32-305"));
-        osoby.add(new Osoba("Darek","Izuma","Karpacka","Zakopane",305554302,"65-862"));
-        osoby.add(new Osoba("Anna","Kubaz","Kocia","Jaworzno",532678332,"99-998"));
-        osoby.add(new Osoba("Demira","Wazer","Leśna","Białystok",791305643,"12-780"));
+    public static void main(String[] args) throws SQLException{
+        Database.executeUpdate("Insert into ksiazkaadresowa (imie,nazwisko,miasto,ulica,numer,kodpocztowy) values ('Janusz','Dworak','Grunwald','17-stycznia',505432223,'43-321')");
+         try(ResultSet r = Database.executeQuery("Select * from ksiazkaadresowa")){
+             while(r.next()){
+                 System.out.println(r.getString(2));
+             }
+         }
+         catch(SQLException e){
+             System.out.println("Błąd SQL: " + e.getMessage());
+         }
         
-        for(Osoba o : osoby){
-            System.out.println(o);
-        }
-        Connection con = Database.getInstance().getConnection();
+        
     }
 }
 
