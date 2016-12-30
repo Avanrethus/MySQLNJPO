@@ -13,6 +13,10 @@ import java.sql.SQLException;
  class Database {
     private static Database dbInstance;
     private static Connection con;
+    private static String driver = "com.mysql.jdbc.Driver";
+    private static String host = "jdbc:mysql://localhost:3306/njpo";
+    private static String login = "root";
+    private static String pass = "1234kokos";
 
     public static Database getInstance(){
         if(dbInstance == null){
@@ -23,10 +27,7 @@ import java.sql.SQLException;
     public static Connection getConnection(){
         if(con == null){
             try{
-                String driver = "com.mysql.jdbc.Driver";
-                String host = "jdbc:mysql://localhost:3306/njpo";
-                String login = "root";
-                String pass = "1234kokos";
+                
                 Class.forName(driver);
                 con = DriverManager.getConnection(host, login, pass);
             }
@@ -62,4 +63,50 @@ import java.sql.SQLException;
         }
        return -1;
     }
-}
+    public static void zczytajZBazy() throws SQLException{
+        try{
+            Class.forName(driver);
+            try{
+                con = Database.getConnection();
+                String query = "Select * from ksiazkaadresowa";
+                try(PreparedStatement p = con.prepareStatement(query)){
+                    try(ResultSet r =p.executeQuery()){
+                        while(r.next()){
+                            System.out.println(r.getString(2));
+                        }
+                    }
+                }
+            }
+            catch(SQLException e){
+                System.out.println("Błąd składni SQL: " + e.getMessage());
+            }
+        }
+        catch(ClassNotFoundException ex){
+                System.out.println("Bład sterownika JDBC" + ex.getMessage());
+        }
+    }
+    public static void zapiszDoBazy(Osoba osoba){
+        try{
+            Class.forName(driver);
+            try{
+                con = Database.getConnection();
+                String query = "Insert into ksiazkaadresowa (imie, nazwisko, miasto, ulica, numer, kodpocztowy) values ('"
+                        + Osoba.imie + "', '"
+                        + Osoba.nazwisko + "', '"
+                        + Osoba.miasto + "', '"
+                        + Osoba.ulica +"', "
+                        + Osoba.numer +", '"
+                        + Osoba.kodpocztowy + "')";
+                try(PreparedStatement p = con.prepareStatement(query)){
+                    int update = p.executeUpdate();
+                }
+            }
+            catch(SQLException e){
+                System.out.println("Bład składni SQL: " + e.getMessage());
+            }
+        }
+        catch(ClassNotFoundException ex){
+            System.out.println("Błąd sterownika JDBC: " + ex.getMessage());
+        }
+    }    
+ }

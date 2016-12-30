@@ -1,12 +1,12 @@
 package Database;
 public class Osoba implements Comparable<Osoba>  {
     
-    private String imie;
-    private String nazwisko;
-    private String miasto;
-    private String ulica;
-    private int numer;
-    private String kodpocztowy;
+    public static String imie;
+    public static String nazwisko;
+    public static String miasto;
+    public static String ulica;
+    public static int numer;
+    public static String kodpocztowy;
     
     public Osoba(String imie, String nazwisko, String ulica,  String miasto,  int numer, String kodpocztowy){
         this.imie = imie;
